@@ -37,5 +37,19 @@ day2_part2_test = TestLabel "Day 2 Part 2 Tests" $ TestList $ map (\(input, outp
         ("1x1x10", 14)
     ]
 
+day3_test :: Test
+day3_test = TestLabel "Day 3 Tests" $ TestList $ map (\(input, output) -> TestCase $ assertEqual input output $ day3 input) [
+        (">", 2),
+        ("^>v<", 4),
+        ("^v^v^v^v^v", 2)
+    ]
+
+day3_part2_test :: Test
+day3_part2_test = TestLabel "Day 3 Part 2 Tests" $ TestList $ map (\(input, output) -> TestCase $ assertEqual input output $ day3_part2 input) [
+        ("^v", 3),
+        ("^>v<", 3),
+        ("^v^v^v^v^v", 11)
+    ]
+
 twentyFifteenTests :: Test
-twentyFifteenTests = TestLabel "2015 Tests" $ TestList [day1_test, day1_part2_test, day2_test, day2_part2_test]
+twentyFifteenTests = TestLabel "2015 Tests" $ TestList [day1_test, day1_part2_test, day2_test, day2_part2_test, day3_test, day3_part2_test]
