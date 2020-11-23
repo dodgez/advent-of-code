@@ -75,5 +75,15 @@ day3_part2_test =
           ("^v^v^v^v^v", 11)
         ]
 
+day4_test :: Test
+day4_test =
+  TestLabel "Day 4 Tests" $
+    TestList $
+      map
+        (\(input, output) -> TestCase $ assertEqual input output $ day4 input)
+        [ ("abcdef", 609043),
+          ("pqrstuv", 1048970)
+        ]
+
 twentyFifteenTests :: Test
-twentyFifteenTests = TestLabel "2015 Tests" $ TestList [day1_test, day1_part2_test, day2_test, day2_part2_test, day3_test, day3_part2_test]
+twentyFifteenTests = TestLabel "2015 Tests" $ TestList [day1_test, day1_part2_test, day2_test, day2_part2_test, day3_test, day3_part2_test, day4_test]

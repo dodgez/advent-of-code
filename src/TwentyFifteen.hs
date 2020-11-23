@@ -5,11 +5,16 @@ module TwentyFifteen
     day2_part2,
     day3,
     day3_part2,
+    day4,
+    day4_part2
   )
 where
 
+import Data.Digest.Pure.MD5 (md5)
+import Data.List (isPrefixOf)
 import Data.List.Split (splitOn)
 import qualified Data.Map as M
+import Data.String (IsString (fromString))
 
 day1 :: String -> Int
 day1 =
@@ -77,3 +82,15 @@ day3_part2 input = M.size $ M.filter (> 0) $ second_result
   where
     first_result = foldl day3_update_map (M.fromList [((0, 0), 2)], (0, 0)) (map (day3_parse_direction . snd) $ filter (even . fst) $ zip [0 ..] input)
     second_result = fst $ foldl day3_update_map (fst first_result, (0, 0)) (map (day3_parse_direction . snd) $ filter (odd . fst) $ zip [0 ..] input)
+
+day4_check_num :: Int -> String -> Int -> Bool
+day4_check_num n s i = let input = fromString $ s ++ show i in concat (replicate n "0") `isPrefixOf` show (md5 input)
+
+day4_stub :: Int -> String -> Int
+day4_stub n s = head $ filter (day4_check_num n s) [1..]
+
+day4 :: String -> Int
+day4 = day4_stub 5
+
+day4_part2 :: String -> Int
+day4_part2 = day4_stub 6
