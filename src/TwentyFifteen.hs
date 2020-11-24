@@ -1,17 +1,7 @@
-module TwentyFifteen
-  ( day1,
-    day1_part2,
-    day2,
-    day2_part2,
-    day3,
-    day3_part2,
-    day4,
-    day4_part2
-  )
-where
+module TwentyFifteen where
 
 import Data.Digest.Pure.MD5 (md5)
-import Data.List (isPrefixOf)
+import Data.List (isInfixOf, isPrefixOf)
 import Data.List.Split (splitOn)
 import qualified Data.Map as M
 import Data.String (IsString (fromString))
@@ -94,3 +84,19 @@ day4 = day4_stub 5
 
 day4_part2 :: String -> Int
 day4_part2 = day4_stub 6
+
+day5_nice_vowels :: String -> Bool
+day5_nice_vowels s = (>2) (length $ filter (`elem` "aeiou") s)
+
+day5_nice_repeats :: String -> Bool
+day5_nice_repeats (x:y:ys) = x == y || day5_nice_repeats (y:ys)
+day5_nice_repeats _ = False
+
+day5_nice_words :: String -> Bool
+day5_nice_words s = all (not . flip isInfixOf s) ["ab", "cd", "pq", "xy"]
+
+day5_ind :: String -> Bool
+day5_ind s = all (\f -> f s) [day5_nice_vowels, day5_nice_repeats, day5_nice_words]
+
+day5 :: String -> Int
+day5 s = length $ filter day5_ind $ lines s
